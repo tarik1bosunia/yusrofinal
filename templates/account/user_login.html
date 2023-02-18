@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="{% url 'user_login' %}" method="post" novalidate>
+    {% csrf_token %}
+    <fieldset>
+        <legend>Login</legend>
+            {% if UserAuthenticationForm.non_field_errors %}
+                {% for error in UserAuthenticationForm.non_field_errors %}
+                    <p class="er">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+            {% for item in UserAuthenticationForm %}
+                {{ item.legend_tag}}
+                {{ item }}
+                {{ item.errors | striptags }}
+                <br> <br>
+            {% endfor %}
+
+    <input type="submit" value="Submit">
+    </fieldset>
+
+</form>
+<a href="{% url 'user_registration' %}">Sign Up</a>
+
+</body>
+</html>
