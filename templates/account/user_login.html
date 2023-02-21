@@ -6,6 +6,19 @@
 </head>
 <body>
 
+{% if request.GET.command == "verification" %}
+   <div class="container">
+    <h1>Thank you for registering with us! We are sent a email to your email address. Please verify your email. {{ request.GET.email }}</h1>
+   </div>
+    already verified? <a href="{% url 'user_login' %}">Login</a>
+{% elif request.GET.command == "reset_password" %}
+    <h1>
+        We are sent a link to your email address. Please check your email[{{ request.GET.email }}]
+        and click the link to reset your password
+    </h1>
+
+{% else %}
+
 <form action="{% url 'user_login' %}" method="post" novalidate>
     {% csrf_token %}
     <fieldset>
@@ -26,7 +39,16 @@
     </fieldset>
 
 </form>
-<a href="{% url 'user_registration' %}">Sign Up</a>
+    <div>
+        <a href="{% url 'user_registration' %}">Sign Up</a>
+    </div>
+    <div>
+        <a href="{% url 'user_forgotten_password' %}"> Forgotten Password </a>
+
+    </div>
+
+{% endif %}
+
 
 </body>
 </html>

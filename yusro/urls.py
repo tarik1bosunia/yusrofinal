@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('account.urls'))
+    path('', include('home.urls'))
 ]
 
 # Serve static and media files during development

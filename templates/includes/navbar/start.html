@@ -1,0 +1,300 @@
+{% load static %}
+<div class="col d-flex align-items-center">
+    <!-- main menu -->
+
+    <div class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-2" style="width: 38px; height: 38px"
+         type="button" id="mainMenu" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        <i class="fas fa-ellipsis-h"></i>
+    </div>
+    <!-- menu dropdown start-->
+    <ul class="dropdown-menu border-0 shadow p-3 overflow-auto" aria-labelledby="mainMenu" style="width: 23em; max-height: 600px">
+        <!-- menu -->
+        <div>
+            <!-- header -->
+            <li class="p-1 mx-2">
+                <h2>Menu</h2>
+            </li>
+            <!-- search -->
+            <li class="p-1">
+                <div
+                        class="input-group-text bg-gray border-0 rounded-pill"
+                        style="min-height: 40px; min-width: 230px"
+                >
+                    <i class="fas fa-search me-2 text-muted"></i>
+                    <input
+                            type="text"
+                            class="form-control rounded-pill border-0 bg-gray"
+                            placeholder="Search Menu"
+                    />
+                </div>
+            </li>
+            <!-- social items -->
+
+
+            <h4 class="m-2">Ladies</h4>
+            {%  for category in links %}
+                  <!-- s1 -->
+            <li class="my-2 p-1">
+                <a href="{{ category.get_url }}" class="text-decoration-none text-dark d-flex align-items-center justify-content-between">
+                    <div class="p-2">
+                        <img src="{{ category.cat_image.url }}" alt="icon from fb" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover"/>
+                    </div>
+                    <div>
+                        <p class="m-0"> {{ category.category_name }}</p>
+                        <span class="fs-7 text-muted">{{ category.description }}</span
+                        >
+                    </div>
+                </a>
+            </li>
+{#                <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }} </a>#}
+            {% endfor %}
+
+
+            <!-- s3 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/tSXYIzZlfrS.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Friends</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- s4 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Im_0d7HFH4n.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Groups</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- s5 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/hLkEFzsCyXC.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">News Feed</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- s6 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/0gH3vbvr8Ee.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Pages</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <hr/>
+            <!-- ent items -->
+            <h4 class="m-2">Mens</h4>
+            <!-- e1 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Y7r38CcFEw5.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Campus</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- e2 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/N7UOh8REweU.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Events</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- e3 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/tSXYIzZlfrS.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Friends</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <hr/>
+            <!-- ent items -->
+            <h4 class="m-2">Baby</h4>
+            <!-- e1 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Y7r38CcFEw5.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Campus</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- e2 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/N7UOh8REweU.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Events</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+            <!-- e3 -->
+            <li class="my-2 p-1">
+                <a
+                        href="#"
+                        class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                >
+                    <div class="p-2">
+                        <img
+                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/tSXYIzZlfrS.png"
+                                alt="icon from fb"
+                                class="rounded-circle"
+                                style="width: 48px; height: 48px; object-fit: cover"
+                        />
+                    </div>
+                    <div>
+                        <p class="m-0">Friends</p>
+                        <span class="fs-7 text-muted"
+                        >Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Odio, commodi.</span
+                        >
+                    </div>
+                </a>
+            </li>
+        </div>
+    </ul>
+
+    <!-- logo -->
+    <a href="{% url 'home' %}" class="p-1 d-flex align-items-center nav__logo">
+        <img
+                src="{% static 'images/logo.png' %}"
+                alt="logo"
+                class="h-100 w-auto object-fit-cover"
+        />
+    </a>
+</div>

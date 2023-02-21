@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/product_details.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="{% static 'js/product_details.js' %}" defer></script>
+
+    <div class="card flex-center">
+        <section class="product-img">
+            <img src="{{ product.images.url }}" alt="">
+            <ul class="thumb">
+                 {% for image in product_gallery %}
+
+                     <li><a href="{{ image.image.url }}" target="mainImage"> <img src="{{ image.image.url }}" alt="Product Image"> </a></li>
+                 {% endfor %}
+            </ul>
+
+            <div class="magnifier-lens"></div>
+        </section>
+
+        <section class="product-details">
+            <h1 class="product-title">
+              {{ product.product_name }}
+            </h1>
+            <div class="product-review">
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9734;</span>
+                <span class="star-rate"> <mark> 4.0 </mark>  Stars  </span>
+                <span class="star-no"> <mark> 12k </mark>  Reviews  </span>
+                <span class="quantity-sold"> <mark> 120k </mark> Buyers   </span>
+            </div>
+            <div class="product-price">
+                <p>Special Price</p>
+                <p class="current-price">tk{{ product.price }}</p>
+                <p class="orginal-price"><del>tk{{ product.price }}</del> 0% off</p>
+            </div>
+            <div class="product-promotion">
+                <p>Available Offers</p>
+                <ul class="promotion-list">
+                    <li class="promotion-item">Up to US $25 off shipping</li>
+                    <li class="promotion-item">Get $5.99 off every $200 spent with PayPal</li>
+                    <li class="promotion-item">Bank Offers 5%  Unlimited...</li>
+                    <li class="promotion-item">Partner offer ... </li>
+                </ul>
+            </div>
+            <div class="magnified-img">
+
+            </div>
+        </section>
+    </div>
+{% endblock content %}

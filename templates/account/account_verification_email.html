@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+    Hi {{ user.get_full_name }},
+
+    Please click on bellow link to confirm your registration
+    http://{{ domain }}{% url 'user_activate' uidb64=uid token=token %}
+
+    If you think it is not you, please ignore this email.
+
+{% endautoescape %}

@@ -1,0 +1,32 @@
+.bg-gray {
+    background-color: #f0f2f5;
+  }
+  .fs-0 {
+    font-size: 4rem;
+  }
+  .fs-7 {
+    font-size: 0.8rem;
+  }
+
+
+  /* for logo */
+
+/* @media (min-width: 576px) {
+  .nav__logo{
+    height: 35px;
+  }
+} */
+
+@media (min-width: 768px) {
+  .nav__logo{
+    height: 40px !important;
+  }
+}
+ @media (min-width: 992px) {
+  .nav__logo{
+    height: 45px !important;
+
+  }
+}
+
+

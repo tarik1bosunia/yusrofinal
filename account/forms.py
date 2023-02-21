@@ -43,3 +43,10 @@ class EditAdminForm(UserChangeForm):
         model = get_user_model()
         fields = '__all__'
 
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'first_name', 'last_name', 'phone', 'password1', 'password2')
+        labels = {'email': "Email"}
