@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="" style="width: 100%; height: 100px"></div>
+    <section class="section-content  bg">
+        <div class="container">
+            <div class="row">
+                <aside class="col-lg-6">
+                    <div class="card">
+                        <div class="bg-card-3 px-5 py-3">
+                            <p class="capitalize font-SFProDisplaySemibold">Delivery Information</p>
+                        </div>
+                        <div class="p-4">
+
+                            {% if OrderForm %}
+                                <!-- Form Errors -->
+                                {% if OrderForm.errors %}
+                                    <ul class="errors">
+                                        {% for error in OrderForm.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+
+                                <!-- Display Form -->
+                                <form id="order-form" class="row" method="post" action="{% url 'checkout' %}">
+                                    {% csrf_token %}
+                                    <section class="space-y-5 col-lg-6">
+                                        {% for field in OrderForm %}
+                                            <div class="col form-group">
+                                                <label class="form-label">{{ field.label }}</label>
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
+                                    </section>
+                                </form>
+                            {% endif %}
+
+                            {#                <form class="row">#}
+                            {#                    <section class="space-y-5 col-lg-6">#}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label for="first_name" class="form-label">First Name*</label>#}
+                            {#                            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter first name" required>#}
+                            {#                        </div>#}
+                            {#                          <div class="col form-group">#}
+                            {#                            <label for="last_name" class="form-label">Last Name*</label>#}
+                            {#                            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter last name" required>#}
+                            {#                        </div>#}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label for="email" class="form-label">Email*</label>#}
+                            {#                            <input type="email" placeholder="Enter email" class="form-control" id="email" name="email">#}
+                            {#                        </div>#}
+                            {##}
+                            {#                        <div  class="col form-group">#}
+                            {#                            <label for="phone" class="form-label">Phone Number*</label>#}
+                            {#                            <input type="tel" placeholder="Enter phone number" class="form-control" id="phone" name="phone">#}
+                            {#                        </div>#}
+                            {#                        <button type="submit" hidden="">Submit</button>#}
+                            {#                    </section>#}
+                            {#                    <section class="space-y-5 col-lg-6">#}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label for="division" class="form-label">Division</label>#}
+                            {#                            <select name="{{ form.division.name }}" id="division" class="form-select bg-gray-200">#}
+                            {#                                <option value="">Choose Your Division</option>#}
+                            {#                                {% for division in divisions %}#}
+                            {#                                    <option value="{{ division.id }}">{{ division.name }}</option>#}
+                            {#                                {% endfor %}#}
+                            {#                            </select>#}
+                            {#                        </div>#}
+                            {##}
+                            {#                       <div class="col form-group">#}
+                            {#                            <label for="city" class="form-label">City</label>#}
+                            {#                            <select name="{{ form.city.name }}" id="city" class="form-select bg-gray-200">#}
+                            {#                                <option value="">Choose Your City</option>#}
+                            {#                            </select>#}
+                            {#                        </div>#}
+                            {##}
+                            {#                        <div class="col form-group ">#}
+                            {#                            <label for="area" class="form-label">Area</label>#}
+                            {#                            <select name="area" id="area" class="form-select bg-gray-200">#}
+                            {#                                <option value="default" disabled="" selected>Choose Your Area</option>#}
+                            {#                            </select>#}
+                            {#                        </div>#}
+                            {##}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label class="form-label">Delivery Type*</label>#}
+                            {#                            <select name="delivery_type " class="form-select bg-gray-200">#}
+                            {#                                <option value="default" disabled="">Choose Your Delivery Type</option>#}
+                            {#                                <option value="6">Free Delivery [Applicable For Fully Paid]</option>#}
+                            {#                                <option value="8">Outside Rajshahi | Sundarban (48hrs to 72hrs) | 1% COD</option>#}
+                            {#                            </select>#}
+                            {#                        </div>#}
+                            {##}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label class="form-label">Address 1*</label>#}
+                            {#                            <input type="text" class="form-control bg-gray-200" name="address_1">#}
+                            {#                        </div>#}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label class="form-label-sm ">Address 2</label>#}
+                            {#                            <input type="text" class="form-control bg-gray-200" name="address_2">#}
+                            {#                        </div>#}
+                            {#                        <div class="col form-group">#}
+                            {#                            <label class="form-label">Note (Optional)</label>#}
+                            {#                            <textarea placeholder="Write any note here (Optional)" class="form-control my-2 bg-white text-black" name="note"></textarea>#}
+                            {#                        </div>#}
+                            {#                    </section>#}
+                            {#                </form>#}
+                        </div>
+
+                    </div> <!-- card.// -->
+
+                </aside> <!-- col.// -->
+                <aside class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Order summery</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-borderless table-shopping-cart">
+                                <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col" class="text-right"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for cart_item in cart_items %}
+                                    <tr>
+                                        <td>
+                                            <figure class="itemside align-items-center">
+                                                <a href="{{ cart_item.product.get_url }}" class="aside">
+                                                    <img src="{{ cart_item.product.images.url }}" class="img-sm">
+                                                </a>
+                                                <figcaption class="info">
+                                                    <a href="{{ cart_item.product.get_url }}"
+                                                       class="title text-dark">{{ cart_item.product.product_name }}</a>
+                                                    <p class="small text-muted"> Brand: Yusro </p>
+                                                    {#                                            <p class="small text-muted">Version: CUH-ZCT2E <br> Brand: Sony</p>#}
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <!-- col.// -->
+                                            <div class="col text-center">
+                                                <span type="text" class="form-control"> {{ cart_item.quantity }} </span>
+                                            </div> <!-- col.// -->
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">
+                                                    <span class="px-2">&#2547;</span>{{ cart_item.sub_total }}
+                                                </var>
+                                                <small class="text-muted"> <span
+                                                        class="px-2">&#2547;</span>{{ cart_item.product.selling_price }}
+                                                    each</small>
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+
+                            </table>
+                            <hr class="border-card-3 my-5">
+                            <div class="flex items-center justify-between mb-3 last:mb-0">
+                                <p class="opacity-60">Total Price: BDT <span id="totalPrice">{{ total }}</span></p>
+                            </div>
+                            <div class="flex items-center justify-between mb-3 last:mb-0">
+                                <p class="opacity-60">Delivery Charges: <span>0</span></p>
+                            </div>
+                            <div>
+                                <form action="">
+                                    <input type="text" placeholder="Enter Your Coupon" class="px-2 h-full w-75 btn-outline-light" value="">
+                                    <button type="submit" value="" id="place-order-btn" class="btn btn-primary btn-block"> Apply</button>
+                                </form>
+                            </div>
+                            <hr class="border-secondary border-opacity-40 my-3 border-dotted">
+                            <div class="flex items-center justify-between mb-3 last:mb-0">
+                                <p>Total Price: BDT <span id="totalPrice">{{ total }}</span></p>
+                            </div>
+                            <button type="submit" value="" id="place-order-btn" class="btn btn-primary btn-block">
+                                Place Order
+                            </button>
+
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
+                </aside> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- container .//  -->
+    </section>
+
+
+    {#<script>#}
+    {##}
+    {#    let divisions = {#}
+    {#        1: ["Dhaka", "Gazipur", "Narayanganj", "Tangail"],#}
+    {#        2: ["Barisal", "Barguna", "Bhola", "Jhalokati"],#}
+    {#        3: ["Chittagong", "Bandarban", "Cox's Bazar", "Rangamati"],#}
+    {#        4: ["Khulna", "Bagerhat", "Chuadanga", "Jessore"],#}
+    {#        5: ["Mymensingh", "Fulbaria", "Gouripur", "Trishal"],#}
+    {#        6: ["Rajshahi", "Bogura", "Joypurhat", "Naogaon"],#}
+    {#        7: ["Rangpur", "Dinajpur", "Gaibandha", "Kurigram"],#}
+    {#        8: ["Sylhet", "Habiganj", "Moulvibazar", "Sunamganj"]#}
+    {#    };#}
+    {#    let areas = {#}
+    {#        "Dhaka": ["Mohakhali", "Gulshan", "Dhanmondi", "Uttara"],#}
+    {#        "Rajshahi": ["Puthia", "Durgapur", "Bagmara", "Charghat", "Tanore", "Rajpara", "Boalia", "Mohanpur", "Matihar", "Shah Makhdum"],#}
+    {#        "Gazipur": ["Kaliakoir", "Kaligonj", "Sreepur", "Tongi"],#}
+    {#        "Narayanganj": ["Bandar", "Rupganj", "Sonargaon", "Araihazar"],#}
+    {#        "Tangail": ["Ghatail", "Madhupur", "Mirzapur", "Sakhipur"],#}
+    {#        // Add more city-area pairs here#}
+
+
+
+    <script>
+        function get_cities_by_division() {
+            var division_id = document.getElementById('id_division').value;
+
+            // make ajax request
+            $.ajax({
+                url: '/cart/get_cities_by_division/' + division_id,
+                type: 'get',
+                success: function (data) {
+                    // convert the response data to an iterable object
+                    var cities = Array.from(data);
+
+                    // update the city dropdown with the new list of cities
+                    var city_dropdown = document.getElementById('id_city');
+                    city_dropdown.innerHTML = '';
+                    let disable_option = document.createElement('option')
+                    disable_option.text = "Select City"
+                    disable_option.value = ""
+                    disable_option.disabled = true;
+                    disable_option.selected = true;
+                    city_dropdown.add(disable_option)
+                    cities.forEach(function (city) {
+                        var option = document.createElement('option');
+                        option.text = city.name;
+                        option.value = city.id;
+                        city_dropdown.add(option);
+                    });
+                },
+                error: function () {
+                    console.log('An error occurred while getting cities.');
+                }
+            });
+        }
+
+        function get_areas_by_city() {
+            let city_id = document.getElementById('id_city').value;
+            // make ajax request
+            $.ajax({
+                url: '/cart/get_areas_by_city/' + city_id,
+                type: 'get',
+                success: function (data) {
+                    // convert the response data to an iterable object
+                    var areas = Array.from(data);
+
+                    // update the city dropdown with the new list of cities
+                    var area_dropdown = document.getElementById('id_area');
+                    area_dropdown.innerHTML = '';
+                    let disable_option = document.createElement('option')
+                    disable_option.text = "Select Area"
+                    disable_option.value = ""
+                    disable_option.disabled = true;
+                    disable_option.selected = true;
+                    area_dropdown.add(disable_option)
+
+                    areas.forEach(function (city) {
+                        var option = document.createElement('option');
+                        option.text = city.name;
+                        option.value = city.id;
+                        area_dropdown.add(option);
+                    });
+                },
+                error: function () {
+                    console.log('An error occurred while getting areas.');
+                }
+            });
+
+        }
+
+        {# form submittion #}
+        document.getElementById("place-order-btn").addEventListener("click", function () {
+            document.getElementById("order-form").submit();
+        });
+
+    </script>
+
+{% endblock content %}

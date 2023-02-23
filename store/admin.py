@@ -27,6 +27,7 @@ admin.site.register(Variation, VariationAdmin)
 admin.site.register(ReviewRating)
 
 
+
 # class ProductGalleryAdmin(admin.ModelAdmin):
 #     list_display = ('product', 'image')
 #

@@ -7,6 +7,11 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, Pa
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView
 from django.urls import reverse_lazy
+
+# redirect next page
+# from requests import utils
+from urllib.parse import urlparse, parse_qs
+
 # verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -17,6 +22,9 @@ from account.utils import Util
 
 from .forms import CustomUserCreationForm, EditUserForm
 from account.models import CustomUser
+
+from cart.models import Cart, CartItem
+from cart.views import _cart_id
 
 
 def user_registration_view(request):
@@ -88,9 +96,42 @@ def user_login_view(request):
             password = form.cleaned_data['password']
             user = authenticate(request, email=email, password=password)
             if user is not None:
+                try:
+                    cart = Cart.objects.get(cart_id=_cart_id(request))
+                    cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+
+                    ex_cart_items = CartItem.objects.filter(user=user)
+
+                    for cart_item in cart_items:
+                        if cart_item.product in [ex_item.product for ex_item in ex_cart_items]:
+                            # If the item already exists in the user's cart, increase the quantity
+                            ex_cart_item = ex_cart_items.get(product=cart_item.product)
+                            ex_cart_item.quantity += cart_item.quantity
+                            ex_cart_item.save()
+                            cart_item.delete()
+                        else:
+                            # Otherwise, assign the cart item to the user
+                            cart_item.user = user
+                            cart_item.save()
+
+                except Cart.DoesNotExist:
+                    pass
                 login(request, user)
                 messages.success(request, "Login successfully!")
-                return redirect('user_profile')
+
+                referer_url = request.META.get("HTTP_REFERER")
+                try:
+                    query = urlparse(referer_url).query
+                    next_param = parse_qs(query).get('next', [None])[0]
+                    print("next param: ", next_param)
+                    if next_param:
+                        redirect_url = next_param
+                    else:
+                        redirect_url = reverse('user_profile')
+                except Exception as e:
+                    print("Warning: Error occurred while parsing referer URL -", e)
+                    redirect_url = reverse('user_profile')
+                return redirect(redirect_url)
             else:
                 messages.error(request, "Invalid email or password")
     else:
@@ -220,7 +261,8 @@ def user_forgotten_password_view(request):
                 # messages.success(request, 'Thank you for registering with us! We are sent a email to your email address. Please verify your email.')
                 return redirect(url)
             except CustomUser.DoesNotExist:
-                messages.error(request, "there is no account with this email [" + email + "]. Please write the correct email or create an account")
+                messages.error(request,
+                               "there is no account with this email [" + email + "]. Please write the correct email or create an account")
                 return redirect('user_forgotten_password')
     else:
         form = PasswordResetForm()
