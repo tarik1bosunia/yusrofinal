@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <h2 class="text-center my-3">Popular Products</h2>
+  <div class="row">
+{#  #00bfff  #}
+    {% if products %}
+      {% for product in products %}
+          <div class="col-6 col-md-4 col-lg-3 p-1 p-lg-2">
+            <div class="popular_product card" style="border: none">
+              <a href="{{ product.get_url }}">
+                  <img class="card-img-top object-fit-cover" src="{{ product.images.url }}" alt="Product">
+              </a>
+              <div class="card-body ps-0" style="">
+                <h6 class="card-title" style="font-weight: 600; font-size: 0.9rem">{{ product.product_name }}</h6>
+                <div class="price-wrap mt-2">
+                  <span class="" >Tk {{ product.selling_price }}</span>
+                  {% if product.stock > 0 %}
+                    <del class="price-old">Tk {{ product.regular_price }}</del>
+                  {% else %}
+                    <span class="text-danger">Out Of Stock</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+

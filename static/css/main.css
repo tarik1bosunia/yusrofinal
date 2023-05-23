@@ -1,3 +1,19 @@
+
+@font-face {
+  font-family: 'robotoCondensed';
+  src: url('../fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf');
+}
+@font-face {
+  font-family: 'Questrial';
+  src: url('../fonts/Questrial/Questrial-Regular.ttf');
+}
+
+body {
+    font-family: Questrial , serif;
+}
+
+
+
 .bg-gray {
     background-color: #f0f2f5;
   }
@@ -19,6 +35,10 @@
     height: 35px;
   }
 } */
+
+.bg-white{
+    background-color: rgb(255, 255, 255, 1);
+}
 
 @media (min-width: 768px) {
   .nav__logo{

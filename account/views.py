@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView
 from django.urls import reverse_lazy
@@ -20,7 +20,7 @@ from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import default_token_generator
 from account.utils import Util
 
-from .forms import CustomUserCreationForm, EditUserForm
+from .forms import CustomUserCreationForm, EditUserForm, UserLoginForm
 from account.models import CustomUser
 
 from cart.models import Cart, CartItem
@@ -85,12 +85,35 @@ def user_profile_view(request):
     return render(request, 'account/user_profile.html', context)
 
 
+@login_required(login_url='user_login')
+def user_settings_and_privacy_view(request):
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, request.FILES, instance=request.user)
+        print("form", form)
+        if form.is_valid():
+            user = form.save(commit=False)
+            profile_image = form.cleaned_data['profile_image']
+            print("profile_image:", profile_image)
+            user.profile_image = profile_image
+            user.save()
+            messages.success(request, 'Your profile has been updated.')
+            context = {
+                "EditUserDataForm": form
+            }
+            return redirect('user_profile')
+    else:
+        form = EditUserForm(instance=request.user)
+    context = {
+        "EditUserDataForm": form
+    }
+    return render(request, 'account/settings_and_privacy.html', context)
+
 def user_login_view(request):
     if request.user.is_authenticated:
         return redirect('user_profile')
 
     if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
+        form = UserLoginForm(request=request, data=request.POST)
         if form.is_valid():
             email = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -135,7 +158,7 @@ def user_login_view(request):
             else:
                 messages.error(request, "Invalid email or password")
     else:
-        form = AuthenticationForm(request)
+        form = UserLoginForm(request)
     conntext = {
         "UserAuthenticationForm": form
     }

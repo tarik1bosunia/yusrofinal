@@ -1,0 +1,129 @@
+<style>
+
+        /* PRODUCTS */
+
+
+        .image-container {
+            scroll-behavior: smooth;
+        }
+
+        .image-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image-card {
+            flex: 0 0 auto;
+            width: 100%;
+            height: auto;
+        }
+
+        .product-image {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .product-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pre-btn,
+        .nxt-btn {
+            border: none;
+            width: 5vw;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: transparent;
+            z-index: 2;
+        }
+
+        .pre-btn {
+            left: 0;
+            transform: rotate(180deg);
+        }
+
+        .nxt-btn {
+            right: 0;
+        }
+
+        .pre-btn img,
+        .nxt-btn img {
+            opacity: 0.2;
+        }
+
+        .pre-btn:hover img,
+        .nxt-btn:hover img {
+            opacity: 1;
+        }
+
+
+
+        .btn-text {
+            padding: 10px;
+            font-size: 4rem;
+            font-weight: bolder;
+        }
+    </style>
+
+
+
+<aside class="image_gallery col-md-5 m-0  p-0 position-relative overflow-hidden">
+        <button class="pre-btn"><span class="btn-text opacity-50">&#8250;</span></button>
+        <button class="nxt-btn"><span class="btn-text opacity-50">&#8250;</span></button>
+        <div class="image-container d-flex overflow-x-auto">
+            {% for image in product_gallery %}
+                <div class="image-card">
+                    <a class="product-image" href="{{ image.image.url }}">
+                        <img src="{{ image.image.url }}" class="product-thumb" alt="">
+                    </a>
+
+
+                </div>
+            {% endfor %}
+        </div>
+    </aside>
+
+
+{#<div class="image_gallery col-md-6 m-0 p-0 position-relative overflow-hidden">#}
+{#  <button class="pre-btn position-absolute top-0 start-0 border-0 bg-transparent cursor-pointer"><span class="btn-text opacity-50 ">&#8250;</span></button>#}
+{#  <button class="nxt-btn position-absolute top-0 end-0 border-0 bg-transparent cursor-pointer"><span class="btn-text opacity-50">&#8250;</span></button>#}
+{#  <div class="image-container container-fluid m-0 p-0 d-flex overflow-x-auto scroll-behavior-smooth">#}
+{#    {% for image in product_gallery %}#}
+{#      <div class="image-card flex-shrink-0 w-100 h-100">#}
+{#        <a class="product-image d-block position-relative w-100 h-100 overflow-hidden" href="{{ product.images.url }}">#}
+{#          <img src="{{ product.images.url }}" class="product-thumb w-100 h-100 object-fit-cover" alt="">#}
+{#        </a>#}
+{#      </div>#}
+{#    {% endfor %}#}
+{#  </div>#}
+{#</div>#}
+
+    <script>
+
+        const productContainers = [...document.querySelectorAll('.image-container')];
+        const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
+        const preBtn = [...document.querySelectorAll('.pre-btn')];
+
+        productContainers.forEach((item, i) => {
+            let containerDimensions = item.getBoundingClientRect();
+            let containerWidth = containerDimensions.width;
+
+            nxtBtn[i].addEventListener('click', () => {
+                item.scrollLeft += containerWidth;
+            })
+
+            preBtn[i].addEventListener('click', () => {
+                item.scrollLeft -= containerWidth;
+            })
+        })
+
+    </script>

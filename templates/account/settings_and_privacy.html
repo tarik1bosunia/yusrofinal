@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <h1>Profile </h1>
+    <h3>Wellcome</h3>
+
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-conten padding-y bg">
+
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-3">
+                    <!--   SIDEBAR   -->
+                    <ul class="list-group">
+                        <a class="list-group-item" href="#"> update Profile </a>
+                        <a class="list-group-item" href="{% url 'user_change_password' %}">Change Password</a>
+                        <a class="list-group-item" href="{% url 'user_forgotten_password' %}"> forgotten password </a>
+
+                    </ul>
+                    <br>
+                    <a class="btn btn-light btn-block" href="{% url 'user_logout' %}"> <i class="fa fa-power-off"></i>
+                        <span class="text btn btn-danger">Log out</span>
+                    </a>
+                    <!--   SIDEBAR .//END   -->
+                </aside>
+                <main class="col-md-9">
+                    <article class="card">
+                        <header class="card-header">
+                            <legend>Update Profile</legend>
+                        </header>
+
+
+                        <form action="{% url 'user_profile' %}" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            <fieldset>
+
+                                {% if EditUserDataForm.non_field_errors %}
+                                    {% for error in EditUserDataForm.non_field_errors %}
+                                        <p class="er">{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                {% for item in EditUserDataForm %}
+                                    {{ item.legend_tag }}
+                                    {{ item }}
+                                    {{ item.errors | striptags }}
+                                    <br> <br>
+                                {% endfor %}
+
+                                <input type="submit" value="Update">
+                            </fieldset>
+
+                        </form>
+
+                    </article> <!-- order-group.// -->
+                </main>
+            </div> <!-- row.// -->
+        </div>
+
+
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+{% endblock content %}

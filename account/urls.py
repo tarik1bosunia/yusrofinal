@@ -6,6 +6,7 @@ urlpatterns = [
     path('registration/', views.user_registration_view, name='user_registration'),
     path('', views.user_profile_view, name='user_profile'),
     path('profile/', views.user_profile_view, name='user_profile'),
+    path('settings_and_privacy/', views.user_settings_and_privacy_view, name='user_settings_and_privacy'),
     path('login/', views.user_login_view, name='user_login'),
     path('logout/', views.user_logout_view, name='user_logout'),
     path('activate/<uidb64>/<token>/', views.user_activate_view, name='user_activate'),

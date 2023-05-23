@@ -1,0 +1,105 @@
+{% load static %}
+
+    <div class="row">
+    <div class="col-md-9">
+
+        <header class="section-heading">
+            <h3>Customer Reviews </h3>
+
+        </header>
+
+        <form action="{% url 'submit_review' product.id %}" method="post" class="mb-4">
+            {% csrf_token %}
+            <h5>Write your review</h5>
+
+            Review: {{ product.countReview }}
+
+            {# Rating Stars #}
+            <div class="mb-3">
+                <label class="form-label">Rate this product</label>
+                <br>
+                <div class="rate">
+                    <input type="radio" id="rating10" value="5" name="rating" required> <label for="rating10"
+                                                                                               title="5"></label>
+                    <input type="radio" id="rating9" value="4.5" name="rating" required> <label for="rating9"
+                                                                                                title="4.5"
+                                                                                                class="half"></label>
+                    <input type="radio" id="rating8" value="4" name="rating" required> <label for="rating8"
+                                                                                              title="4"></label>
+                    <input type="radio" id="rating7" value="3.5" name="rating" required> <label for="rating7"
+                                                                                                title="3.5"
+                                                                                                class="half"></label>
+                    <input type="radio" id="rating6" value="3" name="rating" required> <label for="rating6"
+                                                                                              title="3"></label>
+                    <input type="radio" id="rating5" value="2.5" name="rating" required> <label for="rating5"
+                                                                                                title="2.5"
+                                                                                                class="half"></label>
+                    <input type="radio" id="rating4" value="2" name="rating" required> <label for="rating4"
+                                                                                              title="2"></label>
+                    <input type="radio" id="rating3" value="1.5" name="rating" required> <label for="rating3"
+                                                                                                title="1.5"
+                                                                                                class="half"></label>
+                    <input type="radio" id="rating2" value="1" name="rating" required> <label for="rating2"
+                                                                                              title="1"></label>
+                    <input type="radio" id="rating1" value="0.5" name="rating" required> <label for="rating1"
+                                                                                                title="0.5"
+                                                                                                class="half"></label>
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Review Title:</label>
+                <input type="text" class="form-control" id="subject" name="subject">
+
+            </div>
+            <div class="mb-3">
+                <label for="review" class="form-label">Review:</label>
+                <textarea type="text" class="form-control" id="review" name="review" rows="3"></textarea>
+            </div>
+            {% if user.is_authenticated %}
+                {# i have also need to check if the user already purched the produt #}
+                {% if is_already_ordered_product %}
+                    <button class="btn btn-primary" type="submit">Submit Review</button>
+                {% else %}
+                    <p>Only those user can post a review who are already purchased this product. </p>
+                {% endif %}
+            {% else %}
+                <p>You must be logged in to post a review. <span><a href="{% url 'user_login' %}">Login now</a></span>
+                </p>
+            {% endif %}
+        </form>
+        {% if reviews %}
+            {% for review in reviews %}
+
+                <article class="box mb-3">
+
+                    <div class="icontext w-100">
+                        <img src="{% static 'images/avatars/avatar1.jpg' %}" class="img-xs icon rounded-circle" alt="profile image">
+                        <div class="text">
+                            <span class="date text-muted float-md-right">{{ review.updated_at }} </span>
+                            <h6 class="mb-1">{{ review.user.get_full_name }} </h6>
+                            <div class="rating_stars_reviews">
+                                <span>
+                                    <i class="{% if review.rating == 0.5 %}fa-solid fa-star-half {% elif review.rating > 0.5  %}  fa-solid fa-star {% else %}fa-regular fa-star {% endif %}"></i>
+                                    <i class="{% if review.rating == 1.5 %}fa-solid fa-star-half {% elif review.rating > 1.5  %}  fa-solid fa-star {% else %}fa-regular fa-star {% endif %}"></i>
+                                    <i class="{% if review.rating == 2.5 %}fa-solid fa-star-half {% elif review.rating > 2.5  %}  fa-solid fa-star {% else %}fa-regular fa-star {% endif %}"></i>
+                                    <i class="{% if review.rating == 3.5 %}fa-solid fa-star-half {% elif review.rating > 3.5  %}  fa-solid fa-star {% else %}fa-regular fa-star {% endif %}"></i>
+                                    <i class="{% if review.rating == 4.5 %}fa-solid fa-star-half {% elif review.rating > 4.5  %}  fa-solid fa-star {% else %}fa-regular fa-star {% endif %}"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div> <!-- icontext.// -->
+                    <div class="mt-3">
+                        <h6 class="title fw-bold"> {{ review.subject }} </h6>
+                        <p> {{ review.review }} </p>
+                    </div>
+
+                </article>
+            {% endfor %}
+        {% endif %}
+
+    </div> <!-- col.// -->
+</div> <!-- row.// -->
+

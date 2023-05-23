@@ -14,22 +14,18 @@
 	<aside class="col-md-3">
 		<!--   SIDEBAR   -->
 		<ul class="list-group">
-			<a class="list-group-item active" href="#"> My order history </a>
-			<a class="list-group-item" href="#"> Transactions </a>
-			<a class="list-group-item" href="#"> Return and refunds </a>
-			<a class="list-group-item" href="#">Settings </a>
-			<a class="list-group-item" href="#"> My Selling Items </a>
-			<a class="list-group-item" href="#"> Received orders </a>
+			<a class="list-group-item active" href="#"> Dashboard </a>
+			<a class="list-group-item" href="#"> Order History </a>
+			<a class="list-group-item" href="#"> Edit Profile </a>
+			<a class="list-group-item" href="{% url 'user_settings_and_privacy' %}"> Settings & privacy </a>
+
 		</ul>
-		<br>
-		<a class="btn btn-light btn-block" href="#"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
-		<!--   SIDEBAR .//END   -->
+
 	</aside>
 	<main class="col-md-9">
 		<article class="card">
 		<header class="card-header">
-			<strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
-			<span>Order Date: 16 December 2018</span>
+			<strong>{{ user.get_full_name }}</strong>
 		</header>
 		<div class="card-body">
 			<div class="row">
@@ -99,31 +95,5 @@
 
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
-
-<p>user: {{ user.get_full_name }}</p>
-<a href="{% url 'user_logout' %}">Logout</a>
-<a href="{% url 'user_change_password' %}">Change Password</a>
-
-<form action="{% url 'user_profile' %}" method="post" enctype="multipart/form-data" novalidate>
-    {% csrf_token %}
-    <fieldset>
-        <legend>Update Profile</legend>
-            {% if EditUserDataForm.non_field_errors %}
-                {% for error in EditUserDataForm.non_field_errors %}
-                    <p class="er">{{ error }}</p>
-                {% endfor %}
-            {% endif %}
-            {% for item in EditUserDataForm %}
-                {{ item.legend_tag}}
-                {{ item }}
-                {{ item.errors | striptags }}
-                <br> <br>
-            {% endfor %}
-
-    <input type="submit" value="Update">
-    </fieldset>
-
-</form>
-
 
 {% endblock content %}

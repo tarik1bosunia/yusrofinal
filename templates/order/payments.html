@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="my-5 py-5"></div>
+
+    <section class="section-content padding-y bg">
+        <div class="container">
+                 <h4 class="text-center mb-10">Review Your order</h4>
+
+                <div class="row">
+
+                <aside class="col-lg-8">
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>Billing Address</h4>
+                      </div>
+                      <div class="card-body mb-0">
+                        <p class="card-text mb-0">{{ order.get_full_name }}</p>
+                        <p class="card-text mb-0">{{ order.get_full_address}}</p>
+                        <p class="card-text mb-0">{{ order.area}}, {{ order.city }}, {{ order.division }}</p>
+                        <p class="card-text mb-0">{{ order.email }}</p>
+                        <p class="card-text mb-0">{{ order.phone }}</p>
+                          {% if order.order_note %}
+                              <strong>Order Note:</strong>
+                              <p>{{ order.order_note }}</p>
+                          {% endif %}
+
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                       <h4> payments method</h4>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text">Cash On delivery</p>
+
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>Review products</h4>
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-borderless table-shopping-cart">
+                                <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="120">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                    <th scope="col" class="text-right" width="200"></th>
+                                </tr>
+                                </thead>
+                                    <tbody>
+                                    {% for cart_item in cart_items %}
+                                        <tr>
+                                        <td>
+                                            <figure class="itemside align-items-center">
+                                                <a href="{{ cart_item.product.get_url }}" class="aside">
+                                                    <img src="{{ cart_item.product.images.url }}" class="img-sm">
+                                                </a>
+                                                <figcaption class="info">
+                                                    <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
+                                                    <p class="small text-muted"> Brand: Yusro </p>
+        {#                                            <p class="small text-muted">Version: CUH-ZCT2E <br> Brand: Sony</p>#}
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <!-- col.// -->
+                                            <div class="col">
+                                                <div class="input-group input-spinner">
+                                                    <button class="form-control">{{ cart_item.quantity }}</button>
+
+
+                                                </div> <!-- input-group.// -->
+                                            </div> <!-- col.// -->
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">
+                                                    <span class="px-2">&#2547;</span>{{ cart_item.sub_total }}
+                                                </var>
+                                                <small class="text-muted">  <span class="px-2">&#2547;</span>{{ cart_item.product.selling_price }} each</small>
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                    </tbody>
+
+                            </table>
+
+                      </div>
+                    </div>
+
+                </aside> <!-- col.// -->
+                <aside class="col-lg-4">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <dl class="dlist-align">
+                                <dt>Total price:</dt>
+                                <dd class="text-right">Tk{{ total }}</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Delivery Charge:</dt>
+                                <dd class="text-right"> will be added</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Total:</dt>
+                                <dd class="text-right text-dark b"><strong>{{ grand_total }}</strong>
+                                </dd>
+                            </dl>
+                            <hr>
+{#                            <p class="text-center mb-3">#}
+{#                                <img src="{% static 'images/misc/payments.png' %}" height="26">#}
+{#                            </p>#}
+
+                          <p>
+                              <h4 class="mb-4">Payment Method</h4>
+
+                              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cashOnDelivery" aria-expanded="false" aria-controls="collapseExample">
+                                Cash on delivery
+                              </button>
+                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#payWithBkash" aria-expanded="false" aria-controls="collapseExample">
+                                pay With bKash
+                              </button>
+                            </p>
+                            {# cash on delivery model #}
+                            <div class="collapse" id="cashOnDelivery">
+                              <div class="card card-body">
+                                Only this service is available now. You have to pay on delivery the product.
+                              </div>
+                            </div>
+                            {# bKash payment model #}
+                            <div class="collapse" id="payWithBkash">
+                              <div class="card card-body">
+                                bKash payment is not available now. We are working on it
+                              </div>
+                            </div>
+{#                            <a href="{% url 'payments' %}" class="btn btn-primary btn-block"> Make Payment </a>#}
+
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card.// -->
+
+                </aside> <!-- col.// -->
+
+            </div> <!-- row.// -->
+
+
+        </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}

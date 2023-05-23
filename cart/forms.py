@@ -1,5 +1,5 @@
 from django import forms
-from cart.models import Order, Division, City, Area
+from order.models import Order, Division, City, Area
 
 DELIVERY_TYPE_CHOICES = [
     (1, 'Standard'),
@@ -37,7 +37,7 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'phone', 'division', 'city', 'area', 'delivery_type', 'address_1', 'address_2', 'note']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'division', 'city', 'area', 'delivery_type', 'address_line_1', 'address_line_2', 'order_note']
 
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)

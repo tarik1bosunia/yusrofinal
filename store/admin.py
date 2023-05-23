@@ -10,7 +10,7 @@ class ProductGalleryInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_name', 'regular_price', 'selling_price', 'discount_percentage', 'discount_tc', 'stock', 'product_for', 'category', 'modified_date', 'is_available')
+    list_display = ('product_name', 'regular_price', 'selling_price', 'discount_percentage', 'discount_tc', 'stock', 'product_for', 'category', 'points', 'show_in_popular_products', 'modified_date', 'is_available')
     prepopulated_fields = {'slug': ('product_name',)}
     # list_filter = ('sector',)
     inlines = [ProductGalleryInline]

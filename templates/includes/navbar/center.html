@@ -1,21 +1,23 @@
+
 <div class="col d-flex align-items-center ">
     <!-- search start -->
     <div class="input-group ms-2">
-        <!-- mobile -->
-        <span class="input-group-prepend d-lg-none searchButton" id="searchMenu" data-bs-toggle="dropdown"
-              aria-expanded="false" data-bs-auto-close="outside" type="button">
-                <div class="input-group-text bg-gray border-0 rounded-circle" style="min-height: 40px">
-                  <i class="fas fa-search text-muted"></i>
-                </div>
-        </span>
+{#        <!-- mobile -->#}
+{#        <span class="input-group-prepend d-lg-none searchButton" id="searchMenu" data-bs-toggle="dropdown"#}
+{#              aria-expanded="false" data-bs-auto-close="outside" type="button">#}
+{#                <div class="input-group-text bg-gray border-0 rounded-circle" style="min-height: 40px">#}
+{#                  <i class="fas fa-search text-muted"></i>#}
+{#                </div>#}
+{#        </span>#}
         <!-- desktop -->
         <span class="input-group-prepend d-none d-lg-block" id="searchMenu" data-bs-toggle="dropdown"
               aria-expanded="false" data-bs-auto-close="outside">
+            <form action="{% url 'search_product' %}" class="search bg-gray border-0 rounded-pill" style="height: 40px; min-width: 500px;">
+                <input type="search" class="rounded-pill border-0 bg-gray dropdown-item" placeholder="Search..." id="searchInput" style="padding: 10px 16px; height: 100%;" />
 
-            <div class="input-group-text bg-gray border-0 rounded-pill" style="min-height: 40px; min-width: 500px">
-                <input type="text" class="rounded-pill border-0 bg-gray dropdown-item" placeholder="Search Yusro..." id="searchInput"/>
-                  <i class="fas fa-search me-2 text-muted"></i>
-                </div>
+            </form>
+
+
         </span>
         <!-- search menu -->
         <ul class="dropdown-menu overflow-auto border-0 shadow p-3" aria-labelledby="searchMenu" style="width: 20em; max-height: 600px" id="searchDropdown">
@@ -28,8 +30,10 @@
                         id="searchInput"
                 />
             </li>
-            <!-- search 1 -->
-            <li class="my-4">
+            {% if products %}
+                {% for product in products %}
+                       <!-- search 1 -->
+                        <li class="my-4">
                 <div
                         class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between"
                         role="alert"
@@ -41,7 +45,7 @@
                                 class="rounded-circle me-2"
                                 style="width: 35px; height: 35px; object-fit: cover"
                         />
-                        <p class="m-0">Lorem ipsum</p>
+                        <p class="m-0">We are working on it</p>
                     </div>
                     <button
                             type="button"
@@ -51,53 +55,146 @@
                     ></button>
                 </div>
             </li>
-            <!-- search 2 -->
-            <li class="my-4">
-                <div
-                        class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between"
-                        role="alert"
-                >
-                    <div class="d-flex align-items-center">
-                        <img
-                                src="https://source.unsplash.com/random/2"
-                                alt="avatar"
-                                class="rounded-circle me-2"
-                                style="width: 35px; height: 35px; object-fit: cover"
-                        />
-                        <p class="m-0">Lorem ipsum</p>
-                    </div>
-                    <button
-                            type="button"
-                            class="btn-close p-0 m-0"
-                            data-bs-dismiss="alert"
-                            aria-label="Close"
-                    ></button>
-                </div>
-            </li>
-            <!-- search 3 -->
-            <li class="my-4">
-                <div
-                        class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between"
-                        role="alert"
-                >
-                    <div class="d-flex align-items-center">
-                        <img
-                                src="https://source.unsplash.com/random/3"
-                                alt="avatar"
-                                class="rounded-circle me-2"
-                                style="width: 35px; height: 35px; object-fit: cover"
-                        />
-                        <p class="m-0">Lorem ipsum</p>
-                    </div>
-                    <button
-                            type="button"
-                            class="btn-close p-0 m-0"
-                            data-bs-dismiss="alert"
-                            aria-label="Close"
-                    ></button>
-                </div>
-            </li>
+                {% endfor %}
+
+            {% endif %}
+{#            <!-- search 2 -->#}
+{#            <li class="my-4">#}
+{#                <div#}
+{#                        class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between"#}
+{#                        role="alert"#}
+{#                >#}
+{#                    <div class="d-flex align-items-center">#}
+{#                        <img#}
+{#                                src="https://source.unsplash.com/random/2"#}
+{#                                alt="avatar"#}
+{#                                class="rounded-circle me-2"#}
+{#                                style="width: 35px; height: 35px; object-fit: cover"#}
+{#                        />#}
+{#                        <p class="m-0">Lorem ipsum</p>#}
+{#                    </div>#}
+{#                    <button#}
+{#                            type="button"#}
+{#                            class="btn-close p-0 m-0"#}
+{#                            data-bs-dismiss="alert"#}
+{#                            aria-label="Close"#}
+{#                    ></button>#}
+{#                </div>#}
+{#            </li>#}
+{#            <!-- search 3 -->#}
+{#            <li class="my-4">#}
+{#                <div#}
+{#                        class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between"#}
+{#                        role="alert"#}
+{#                >#}
+{#                    <div class="d-flex align-items-center">#}
+{#                        <img#}
+{#                                src="https://source.unsplash.com/random/3"#}
+{#                                alt="avatar"#}
+{#                                class="rounded-circle me-2"#}
+{#                                style="width: 35px; height: 35px; object-fit: cover"#}
+{#                        />#}
+{#                        <p class="m-0">Lorem ipsum</p>#}
+{#                    </div>#}
+{#                    <button#}
+{#                            type="button"#}
+{#                            class="btn-close p-0 m-0"#}
+{#                            data-bs-dismiss="alert"#}
+{#                            aria-label="Close"#}
+{#                    ></button>#}
+{#                </div>#}
+{#            </li>#}
         </ul>
     </div>
     <!-- search end -->
 </div>
+
+<script>
+    $(document).ready(function() {
+    $('#searchInput').autocomplete({
+        source: function(request, response) {
+            $.getJSON('{% url "autocomplete" %}', { term: request.term }, function(data) {
+                console.log('data:', data)
+                response(data);
+            });
+        },
+        minLength: 2
+    });
+});
+
+</script>
+
+{#<script>#}
+{#  $( function() {#}
+{#    var availableTags = [#}
+{#      "Apple",#}
+{#      "Banana",#}
+{#      "Cherry",#}
+{#      "Durian",#}
+{#      "Elderberry",#}
+{#      "Fig",#}
+{#      "Grape",#}
+{#      "Honeydew",#}
+{#      "Iced Tea",#}
+{#      "Jackfruit",#}
+{#      "Kiwi",#}
+{#      "Lemon",#}
+{#      "Mango",#}
+{#      "Nectarine",#}
+{#      "Orange",#}
+{#      "Papaya",#}
+{#      "Quince",#}
+{#      "Raspberry",#}
+{#      "Strawberry",#}
+{#      "Tangerine",#}
+{#      "Ugli fruit",#}
+{#      "Vanilla ice cream",#}
+{#      "Watermelon",#}
+{#      "Xigua",#}
+{#      "Yellow watermelon",#}
+{#      "Zucchini"#}
+{#    ];#}
+{#    $( "#myInput" ).autocomplete({#}
+{#      source: availableTags#}
+{#    });#}
+{#  } );#}
+{#</script>#}
+
+{#<script>#}
+{#// Get the search input field#}
+{#const searchInput = document.querySelector('#searchInput');#}
+{##}
+{#// Add an event listener to the search input field#}
+{#searchInput.addEventListener('input', function(event) {#}
+{#    // Get the search query from the input field#}
+{#    const searchQuery = event.target.value;#}
+{##}
+{##}
+{##}
+{#    console.log(searchQuery)#}
+{#    // Send an AJAX request to the server to get search results#}
+{#    fetch(`/search?keyword=${searchQuery}`)#}
+{#        .then(response => response.json())#}
+{#        .then(data => {#}
+{#            // Update the search results dropdown with the new search results#}
+{#            const searchDropdown = document.querySelector('#searchDropdown');#}
+{#            searchDropdown.innerHTML = '';#}
+{#            data.forEach(result => {#}
+{#                const li = document.createElement('li');#}
+{#                li.innerHTML = `#}
+{#                    <div class="alert fade show dropdown-item p-1 m-0 d-flex align-items-center justify-content-between" role="alert">#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <img src="${result.image_url}" alt="avatar" class="rounded-circle me-2" style="width: 35px; height: 35px; object-fit: cover">#}
+{#                            <p class="m-0">${result.product_name}</p>#}
+{#                        </div>#}
+{#                        <button type="button" class="btn-close p-0 m-0" data-bs-dismiss="alert" aria-label="Close"></button>#}
+{#                    </div>#}
+{#                `;#}
+{#                searchDropdown.appendChild(li);#}
+{#            });#}
+{#        })#}
+{#        .catch(error => console.error(error));#}
+{#});#}
+{##}
+{##}
+{#</script>#}

@@ -5,7 +5,13 @@
 
 {% block css %}{% endblock css %}
 
-{% block content %}{% endblock content %}
+{% block content %}
+{#    home slider  #}
+
+    {% include 'includes/index/index_category_slider.html' %} {#    category slider  #}
+    {% include 'includes/index/index_popolar_products.html' %}  {#    popular products  #}
+
+{% endblock content %}
 
 {% block footer %} {% endblock footer %}
 

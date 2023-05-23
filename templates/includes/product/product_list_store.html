@@ -1,0 +1,28 @@
+{% if products %}
+    {% for product in products %}
+        <div class="col-6 col-md-4 col-lg-3 p-1 p-lg-2">
+            <div class="product card">
+                <span style="z-index: 3; position: absolute; top: 0; right: 0; background-color: #fff;border-radius: 10px; padding: 5px; font-weight: bold">{{ product.discount_percentage }}% off </span>
+                <a href="{{ product.get_url }}">
+                    <img class="card-img-top object-fit-cover" src="{{ product.images.url }}" alt="Product">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">{{ product.product_name }}</h4>
+                    <div class="price-wrap mt-2">
+                        <span class="price">Tk {{ product.selling_price }}</span>
+                        {% if product.stock > 0 %}
+                            <del class="price-old">Tk {{ product.regular_price }}</del>
+                        {% else %}
+                            <span class="text-danger">Out Of Stock</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div>
+        <h2> No result found. please search with right keyword... </h2>
+    </div>
+{% endif %}

@@ -1,11 +1,11 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm
+from django.utils.safestring import mark_safe
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta:
         model = get_user_model()
         fields = ('email', 'first_name', 'last_name', 'phone', 'password1', 'password2')
@@ -44,9 +44,40 @@ class EditAdminForm(UserChangeForm):
         fields = '__all__'
 
 
-class CustomUserCreationForm(UserCreationForm):
+class PasswordInputWithToggle(forms.PasswordInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        input_html = super().render(name, value, attrs, renderer)
+        toggle_html = '<div class="input-group-append"><button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)"><i class="fa fa-eye"></i></button></div>'
+        # '<span class="password-toggle" onclick="togglePassword(this)">Show</span>'
+        wrapper_html = '<div class="input-group">{input_html}{toggle_html}</div>'
+        return mark_safe(wrapper_html.format(input_html=input_html, toggle_html=toggle_html))
+
+
+class UserLoginForm(AuthenticationForm):
+    username = forms.EmailField(
+        label='',
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'id': 'email',
+                'placeholder': 'Enter your email',
+                'required': True,
+            }
+        )
+    )
+    password = forms.CharField(
+        label='',
+        strip=False,
+        widget=PasswordInputWithToggle(
+            attrs={
+                'class': 'form-control',
+                'id': 'password',
+                'placeholder': 'Enter your password',
+                'required': True,
+            }
+        )
+    )
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'first_name', 'last_name', 'phone', 'password1', 'password2')
-        labels = {'email': "Email"}
+        fields = ('username', 'password')

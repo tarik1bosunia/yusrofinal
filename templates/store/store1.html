@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ========================= SECTION PAGE TOP ========================= -->
+    <section class="section-pagetop bg">
+        <div class="container">
+            {% if 'search' in request.path %}
+                <h2 class="title-page">Search Results</h2>
+
+            {% else %}
+                <h2 class="title-page">Our Store</h2>
+            {% endif %}
+
+        </div> <!-- container //  -->
+    </section>
+    <!-- ========================= SECTION INTRO END// ========================= -->
+
+
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-content padding-y">
+        <div class="container">
+
+            <div class="row">
+                <aside class="col-md-3">
+
+                    <div class="card">
+                        <article class="filter-group">
+                            <header class="card-header">
+
+                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse" style="width: 10rem;">
+                                    <i class="icon-control fa fa-chevron-down"></i>
+                                    <span class="title">Categories</span>
+                                </button>
+
+                            </header>
+                            <div class="filter-content collapse" id="categoryCollapse" style="">
+                                <div class="card-body">
+
+                                    <ul class="list-menu">
+                                        <li class="my-1">
+                                            <a href="{% url 'store' %}" class="text-decoration-none text-dark d-flex align-items-center justify-content-start">
+                                                <div class="p-2 rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2">
+
+                                                    <i class="fa-solid fa-house rounded-circle" style=" color: blueviolet; font-size: 2rem"></i>
+                                                </div>
+                                                <div >
+                                                    <p class="m-0"> All Products</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <h4 class="m-2">Ladies</h4>
+
+                                        {%  for category in links %}
+                                              <!-- s1 -->
+                                        <li class="my-1">
+                                            <a href="{{ category.get_url }}" class="text-decoration-none text-dark d-flex align-items-center justify-content-start">
+                                                <div class="p-2">
+                                                    <img src="{{ category.cat_image.url }}" alt="icon from fb" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover"/>
+                                                </div>
+                                                <div >
+                                                    <p class="m-0"> {{ category.category_name }}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+
+                                </div> <!-- card-body.// -->
+                            </div>
+                        </article> <!-- filter-group  .// -->
+
+                        <article class="filter-group">
+                            <header class="card-header">
+
+                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sizes" aria-expanded="false" aria-controls="sizes" style="width: 10rem;">
+                                    <i class="icon-control fa fa-chevron-down"></i>
+                                    <span class="title">Sizes</span>
+                                </button>
+
+                            </header>
+                            <div class="filter-content collapse" id="sizes" style="">
+                                <div class="card-body">
+                                    <label class="checkbox-btn">
+                                        <input type="checkbox">
+                                        <span class="btn btn-light"> XS </span>
+                                    </label>
+
+                                    <label class="checkbox-btn">
+                                        <input type="checkbox">
+                                        <span class="btn btn-light"> SM </span>
+                                    </label>
+
+                                    <label class="checkbox-btn">
+                                        <input type="checkbox">
+                                        <span class="btn btn-light"> LG </span>
+                                    </label>
+
+                                    <label class="checkbox-btn">
+                                        <input type="checkbox">
+                                        <span class="btn btn-light"> XXL </span>
+                                    </label>
+                                </div><!-- card-body.// -->
+                            </div>
+                        </article> <!-- filter-group .// -->
+
+                        <article class="filter-group">
+                            <header class="card-header">
+
+                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#price_range" aria-expanded="false" aria-controls="price_range" style="width: 10rem;">
+                                    <i class="icon-control fa fa-chevron-down"></i>
+                                    <span class="title">Price range</span>
+                                </button>
+
+                            </header>
+
+                            <div class="filter-content collapse" id="price_range" style="">
+                                <div class="card-body">
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Min</label>
+                                            <!-- <input class="form-control" placeholder="$0" type="number"> -->
+                                            <select class="mr-2 form-control">
+                                                <option value="0">tk0</option>
+                                                <option value="50">tk500</option>
+                                                <option value="100">tk1000</option>
+                                                <option value="150">tk1500</option>
+                                                <option value="200">tk2000</option>
+                                                <option value="500">tk5000</option>
+                                                <option value="1000">tk10000</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group text-right col-md-6">
+                                            <label>Max</label>
+                                            <select class="mr-2 form-control">
+                                                <option value="50">tk500</option>
+                                                <option value="100">tk1000</option>
+                                                <option value="150">tk1500</option>
+                                                <option value="200">tk2000</option>
+                                                <option value="500">tk5000</option>
+                                                <option value="1000">tk10000</option>
+                                                <option value="2000">tk20000+</option>
+                                            </select>
+                                        </div>
+                                    </div> <!-- form-row.// -->
+                                    <button class="btn btn-block btn-primary">Apply</button>
+                                </div><!-- card-body.// -->
+                            </div>
+                        </article> <!-- filter-group .// -->
+
+                    </div> <!-- card.// -->
+
+                </aside> <!-- col.// -->
+                <main class="col-md-9">
+
+                    <header class="border-bottom mb-4 pb-3">
+                        <div class="form-inline">
+                            <span class="mr-md-auto"><strong> {{ products_count }}</strong> Items found </span>
+
+                        </div>
+                    </header>
+
+
+                    <div class="container-fluid">
+                        <div class="row">
+                        {% if products %}
+                            {% for product in products %}
+                                <div class="col-6 col-md-4 col-lg-3 p-1 p-lg-2">
+                                    <div class="product card">
+                                        <span  style="z-index: 3; position: absolute; top: 0; right: 0; background-color: #fff;border-radius: 10px; padding: 5px; font-weight: bold">{{ product.discount_percentage }}% off </span>
+                                        <a href="{{ product.get_url }}">
+                                            <img class="card-img-top object-fit-cover" src="{{ product.images.url }}" alt="Product">
+                                        </a>
+                                          <div class="card-body">
+                                            <h4 class="card-title">{{ product.product_name }}</h4>
+                                            <div class="price-wrap mt-2">
+                                              <span class="price">Tk {{ product.selling_price }}</span>
+                                              {% if product.stock > 0 %}
+                                                <del class="price-old">Tk {{ product.regular_price }}</del>
+                                              {% else %}
+                                                <span class="text-danger">Out Of Stock</span>
+                                              {% endif %}
+                                            </div>
+                                          </div>
+
+                                    </div>
+                                </div>
+                        {% endfor %}
+                        {% else %}
+                            <div>
+                                <h2> No result found. please search with right keyword... </h2>
+                            </div>
+                        {% endif %}
+                    </div>
+                    </div>
+
+
+                    <nav class="mt-4" aria-label="Page navigation sample">
+                        {% if products.has_other_pages %}
+                            <ul class="pagination">
+                                {% if products.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                {% endif %}
+                                {% for page in products.paginator.page_range %}
+                                    {% if products.number == page %}
+                                    <li class="page-item active"><a class="page-link" href="?page={{ products.number }}">Page {{ products.number }}</a>
+                                    </li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                    </li>
+                                    {% endif %}
+
+                                {% endfor %}
+{#                                <li class="page-item active"><a class="page-link" href="?page={{ products.number }}">Page {{ products.number }}</a>#}
+{#                                </li>#}
+{#                                <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+
+                                {% if products.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ products.paginator.num_pages }}">last &raquo;</a></li>
+
+                                {% else %}
+                                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </nav>
+
+                </main> <!-- col.// -->
+
+            </div>
+
+        </div> <!-- container .//  -->
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+    <script>
+  // Get the viewport width
+  let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  function setCollapse(id){
+       // Get the collapse element
+          let collapseElement = document.getElementById(id);
+
+          // Check if the viewport width is less than or equal to 767 pixels
+          if (viewportWidth <= 767) {
+               // Remove the show class from the collapse element
+            collapseElement.classList.remove("show");
+
+          } else {
+              // Add the show class to the collapse element
+            collapseElement.classList.add("show");
+
+          }
+  }
+    setCollapse("categoryCollapse")
+    setCollapse("sizes")
+    setCollapse("price_range")
+
+</script>
+
+    <script>
+    $(document).ready(function() {
+    let currentPage = 1; // start at page 1
+    let prevUrl = ''; // store previous page URL
+    let nextUrl = '{% url "store" category.slug %}' + '?page=2'; // store next page URL
+
+    function loadProducts(url) {
+        $.ajax({
+            url: url,
+            success: function(data) {
+                $('#product-list').append(data.products_html);
+                currentPage = data.page_number;
+                prevUrl = data.has_previous_page ? ('{% url "store" category.slug %}' + '?page=' + data.previous_page_number) : '';
+                nextUrl = data.has_next_page ? ('{% url "store" category.slug %}' + '?page=' + data.next_page_number) : '';
+            }
+        });
+    }
+
+    // load next page on scroll
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            
+            if(nextUrl) {
+                loadProducts(nextUrl);
+            }
+        }
+    });
+
+    // load previous page when user scrolls to top
+    $(window).scroll(function() {
+        if($(window).scrollTop() == 0) {
+            if(prevUrl) {
+                loadProducts(prevUrl);
+            }
+        }
+    });
+});
+
+    </script>
+
+{% endblock content %}
+

@@ -1,10 +1,22 @@
 
 <div class="col d-flex align-items-center justify-content-end">
-    <!-- chat -->
-    <div class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2" style="width: 38px; height: 38px"
-            type="button" id="chatMenu" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+  <span class="input-group-prepend d-lg-none searchButton" id="searchMenu" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-auto-close="outside" type="button">
+                <div class="input-group-text bg-white border-0 rounded-circle" style="min-height: 40px">
+                  <i class="fas fa-search text-muted"></i>
+                </div>
+  </span>
+    <a class="rounded-circle p-1 d-flex align-items-center justify-content-center text-decoration-none black" style="width: 38px; height: 38px"
+            type="button" id="offers"  href="{% url 'offers' %}">
         <i class="fa-solid fa-box-open"></i>
-    </div>
+    </a>
+
+
+    <!-- chat -->
+{#    <div class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2" style="width: 38px; height: 38px"#}
+{#            type="button" id="chatMenu" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">#}
+{#        <i class="fa-solid fa-box-open"></i>#}
+{#    </div>#}
 
     <!-- chat  dd -->
     <ul class="dropdown-menu border-0 shadow p-3 overflow-auto" aria-labelledby="chatMenu" style="width: 23em; max-height: 600px">
@@ -391,7 +403,7 @@
         </a>
     </ul>
     <!-- notifications -->
-    <a href="{% url 'cart' %}" class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2 text-decoration-none"
+    <a href="{% url 'cart' %}" class="rounded-circle p-1 bg-white d-flex align-items-center justify-content-center  text-decoration-none black"
             style="width: 38px; height: 38px"
             type="button"
             id="notMenu"
@@ -401,7 +413,7 @@
 
     <!-- user menu -->
     {% if user.is_authenticated %}
-    <div class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2"
+    <div class="rounded-circle p-1 d-flex align-items-center justify-content-center mx-1 mx-lg-2"
             style="width: 38px; height: 38px"
             type="button"
             id="userMenu"
@@ -418,7 +430,7 @@
     {% include 'includes/navbar/user_menu_dropdown.html' %}
     {#  guest menu #}
     {% else %}
-        <div class="rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2"
+        <div class="rounded-circle p-1  d-flex align-items-center justify-content-center"
             style="width: 38px; height: 38px" type="button" id="guestMenu" data-bs-toggle="dropdown"
              aria-expanded="false" data-bs-auto-close="outside">
          <i class="fa-solid fa-user rounded-circle me-2"></i>

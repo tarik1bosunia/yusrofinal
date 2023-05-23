@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="{% url 'search_results' %}" method="get">
+        <label for="q">Search:</label>
+        <input type="text" name="q" id="q" class="form-control" autocomplete="off" />
+{#        {% include 'autocomplete_light/static.html' %}#}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#q').autocomplete({
+                    source: "{% url 'product-autocomplete' %}",
+                    minLength: 2,
+                });
+            });
+        </script>
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}

@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="google-site-verification" content="-R93gcJgapmvew7xeO6oEFhM1LY426SF3Zy_CDORfpM" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="">
@@ -14,8 +15,9 @@
     {% block css %}{% endblock css %}
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 </head>
-<body class="bg-gray position-relative">
+<body class="bg-white position-relative">
     {% include 'includes/navbar/header.html' %}
+    <div class="my-3 py-3"></div>
     {% include 'includes/message/messages.html' %}
     {% block content %}{% endblock content %}
     {% include 'includes/footer/footer.html' %}

@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Development settings
+*.sqlite3
+*.env
+
+# Log files
+*.log
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# PyCharm settings
+.idea/
+
+# Local development settings
+local_settings.py
+
+# Database configuration
+db.sqlite3
+
+# Compiled Python files
+*.pyc
+
+# Caches and temporary files
+*.pyo
+*.swp
+*~
+.DS_Store
+
+# Environment variables file
+.env

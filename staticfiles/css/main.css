@@ -1,3 +1,19 @@
+
+@font-face {
+  font-family: 'robotoCondensed';
+  src: url('../fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf');
+}
+@font-face {
+  font-family: 'Questrial';
+  src: url('../fonts/Questrial/Questrial-Regular.ttf');
+}
+
+body {
+    font-family: Questrial , serif;
+}
+
+
+
 .bg-gray {
     background-color: #f0f2f5;
   }
@@ -10,6 +26,9 @@
 
 
   /* for logo */
+  .nav__logo{
+    height: 38px;
+  }
 
 /* @media (min-width: 576px) {
   .nav__logo{
@@ -17,14 +36,18 @@
   }
 } */
 
+.bg-white{
+    background-color: rgb(255, 255, 255, 1);
+}
+
 @media (min-width: 768px) {
   .nav__logo{
-    height: 40px !important;
+    height: 40px;
   }
 }
  @media (min-width: 992px) {
   .nav__logo{
-    height: 45px !important;
+    height: 45px ;
 
   }
 }

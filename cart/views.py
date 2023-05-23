@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from store.models import Product, Variation
-from .models import Cart, CartItem, City, Area
+from .models import Cart, CartItem
+from order.models import City, Area
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from cart.forms import OrderForm
@@ -305,7 +306,7 @@ def cart_view(request, total=0, quantity=0, cart_items=None):
 #     }
 #     return render(request, 'store/checkout.html', context)
 
-@login_required(login_url='user_login')
+# @login_required(login_url='user_login')
 def checkout(request, total=0, quantity=0, cart_items=None):
     try:
         if request.user.is_authenticated:

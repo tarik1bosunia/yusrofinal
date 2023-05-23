@@ -25,6 +25,11 @@ product_for_choice = (
 )
 
 
+class AvailableProductManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(stock__gt=0)
+
+
 class Product(models.Model):
     product_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -38,8 +43,15 @@ class Product(models.Model):
     product_for = models.CharField(max_length=100, choices=product_for_choice)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
+    show_in_popular_products = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()  # The default manager
+    available_products = AvailableProductManager()  # The custom manager
+
+    class Meta:
+        ordering = ('-created_date',)
 
     @property
     def discount_percentage(self):

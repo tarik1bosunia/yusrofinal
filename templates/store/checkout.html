@@ -25,7 +25,7 @@
                                 {% endif %}
 
                                 <!-- Display Form -->
-                                <form id="order-form" class="row" method="post" action="{% url 'checkout' %}">
+                                <form id="order-form" class="row" method="post" action="{% url 'place_order' %}">
                                     {% csrf_token %}
                                     <section class="space-y-5 col-lg-6">
                                         {% for field in OrderForm %}
@@ -35,6 +35,7 @@
                                             </div>
                                         {% endfor %}
                                     </section>
+
                                 </form>
                             {% endif %}
 
@@ -184,7 +185,7 @@
                             <div class="flex items-center justify-between mb-3 last:mb-0">
                                 <p>Total Price: BDT <span id="totalPrice">{{ total }}</span></p>
                             </div>
-                            <button type="submit" value="" id="place-order-btn" class="btn btn-primary btn-block">
+                                    <button  id="placeOrderBtn" class="btn btn-primary btn-block">
                                 Place Order
                             </button>
 
@@ -192,6 +193,7 @@
                     </div> <!-- card.// -->
                 </aside> <!-- col.// -->
             </div> <!-- row.// -->
+
         </div> <!-- container .//  -->
     </section>
 
@@ -224,7 +226,7 @@
 
             // make ajax request
             $.ajax({
-                url: '/cart/get_cities_by_division/' + division_id,
+                url: '/order/get_cities_by_division/' + division_id,
                 type: 'get',
                 success: function (data) {
                     // convert the response data to an iterable object
@@ -256,7 +258,7 @@
             let city_id = document.getElementById('id_city').value;
             // make ajax request
             $.ajax({
-                url: '/cart/get_areas_by_city/' + city_id,
+                url: '/order/get_areas_by_city/' + city_id,
                 type: 'get',
                 success: function (data) {
                     // convert the response data to an iterable object
@@ -286,10 +288,13 @@
 
         }
 
-        {# form submittion #}
-        document.getElementById("place-order-btn").addEventListener("click", function () {
+         {#form submittion #}
+     document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("placeOrderBtn").addEventListener("click", function () {
+            console.log("button clicked")
             document.getElementById("order-form").submit();
         });
+    });
 
     </script>
 

@@ -43,8 +43,12 @@ INSTALLED_APPS = [
     'category.apps.CategoryConfig',
     'store.apps.StoreConfig',
     'cart.apps.CartConfig',
-
+    'order.apps.OrderConfig',
+    "search.apps.SearchConfig",
+    "globals.apps.GlobalsConfig"
 ]
+# python manage.py dumpdata > data.json
+# python manage.py loaddata data.json
 AUTH_USER_MODEL = 'account.CustomUser'
 
 MIDDLEWARE = [
@@ -90,6 +94,27 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#   'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'yusrobdc_yusrotata',
+#         'USER': 'yusrobdc_yusrotata_user',
+#         'PASSWORD': 'tu%Lj@wDRvTt',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'yusro',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

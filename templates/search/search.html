@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <script src="{% static 'js/jquery/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'js/jquery/jquery-ui.min.css' %}">
+
+
+
+    <title>Title</title>
+</head>
+<body>
+<div class="ui-widget">
+  <label for="tags">Names: </label>
+  <input type="search" id="names">
+</div>
+
+<script>
+  let searchInput = document.querySelector('#names')
+  let availableTags = [];
+  searchInput.addEventListener('input', function(event) {
+          // Get the search query from the input field
+          const searchQuery = event.target.value;
+          console.log(searchQuery)
+         console.log('url: ', `{% url 'search' %}?keyword=${searchQuery}`)
+      {#    // Send an AJAX request to the server to get search results#}
+    fetch(`{% url 'get_names' %}?keyword=${searchQuery}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('data: ', data)
+            availableTags = data.payload.map(item => item.name)
+            console.log("available tag: ", availableTags)
+             $( function() {
+                $( "#names" ).autocomplete({
+                  source: availableTags
+                });
+              } );
+        })
+        .catch(error => console.error(error));
+    }
+  )
+
+
+  </script>
+
+</body>
+</html>

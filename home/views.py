@@ -4,7 +4,7 @@ from store.models import Product
 
 
 def home(request):
-    products = Product.objects.all().filter(is_available=True)
+    products = Product.objects.all().filter(is_available=True, show_in_popular_products=True)
 
     context = {
         "products": products,
