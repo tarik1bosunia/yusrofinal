@@ -23,137 +23,7 @@
         <div class="container p-2">
 
             <div class="row">
-                <aside class="col-md-3">
-
-                    <div class="card">
-                        <article class="filter-group">
-                            <header class="card-header">
-
-                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse" style="width: 10rem;">
-                                    <i class="icon-control fa fa-chevron-down"></i>
-                                    <span class="title">Categories</span>
-                                </button>
-
-                            </header>
-                            <div class="filter-content collapse" id="categoryCollapse" style="">
-                                <div class="card-body">
-
-                                    <ul class="list-menu">
-                                        <li class="my-1">
-                                            <a href="{% url 'store' %}" class="text-decoration-none text-dark d-flex align-items-center justify-content-start">
-                                                <div class="p-2 rounded-circle p-1 bg-gray d-flex align-items-center justify-content-center mx-1 mx-lg-2">
-
-                                                    <i class="fa-solid fa-house rounded-circle" style=" color: blueviolet; font-size: 2rem"></i>
-                                                </div>
-                                                <div >
-                                                    <p class="m-0"> All Products</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <h4 class="m-2">Women</h4>
-
-                                        {%  for category in links %}
-                                              <!-- s1 -->
-                                        <li class="my-1">
-                                            <a href="{{ category.get_url }}" class="text-decoration-none text-dark d-flex align-items-center justify-content-start">
-                                                <div class="p-2">
-                                                    <img src="{{ category.cat_image.url }}" alt="icon from fb" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover"/>
-                                                </div>
-                                                <div >
-                                                    <p class="m-0"> {{ category.category_name }}</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        {% endfor %}
-
-                                    </ul>
-
-                                </div> <!-- card-body.// -->
-                            </div>
-                        </article> <!-- filter-group  .// -->
-
-                        <article class="filter-group">
-                            <header class="card-header">
-
-                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sizes" aria-expanded="false" aria-controls="sizes" style="width: 10rem;">
-                                    <i class="icon-control fa fa-chevron-down"></i>
-                                    <span class="title">Sizes</span>
-                                </button>
-
-                            </header>
-                            <div class="filter-content collapse" id="sizes" style="">
-                                <div class="card-body">
-                                    <label class="checkbox-btn">
-                                        <input type="checkbox">
-                                        <span class="btn btn-light"> XS </span>
-                                    </label>
-
-                                    <label class="checkbox-btn">
-                                        <input type="checkbox">
-                                        <span class="btn btn-light"> SM </span>
-                                    </label>
-
-                                    <label class="checkbox-btn">
-                                        <input type="checkbox">
-                                        <span class="btn btn-light"> LG </span>
-                                    </label>
-
-                                    <label class="checkbox-btn">
-                                        <input type="checkbox">
-                                        <span class="btn btn-light"> XXL </span>
-                                    </label>
-                                </div><!-- card-body.// -->
-                            </div>
-                        </article> <!-- filter-group .// -->
-
-                        <article class="filter-group">
-                            <header class="card-header">
-
-                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#price_range" aria-expanded="false" aria-controls="price_range" style="width: 10rem;">
-                                    <i class="icon-control fa fa-chevron-down"></i>
-                                    <span class="title">Price range</span>
-                                </button>
-
-                            </header>
-
-                            <div class="filter-content collapse" id="price_range" style="">
-                                <div class="card-body">
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Min</label>
-                                            <!-- <input class="form-control" placeholder="$0" type="number"> -->
-                                            <select class="mr-2 form-control">
-                                                <option value="0">tk0</option>
-                                                <option value="50">tk500</option>
-                                                <option value="100">tk1000</option>
-                                                <option value="150">tk1500</option>
-                                                <option value="200">tk2000</option>
-                                                <option value="500">tk5000</option>
-                                                <option value="1000">tk10000</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group text-right col-md-6">
-                                            <label>Max</label>
-                                            <select class="mr-2 form-control">
-                                                <option value="50">tk500</option>
-                                                <option value="100">tk1000</option>
-                                                <option value="150">tk1500</option>
-                                                <option value="200">tk2000</option>
-                                                <option value="500">tk5000</option>
-                                                <option value="1000">tk10000</option>
-                                                <option value="2000">tk20000+</option>
-                                            </select>
-                                        </div>
-                                    </div> <!-- form-row.// -->
-                                    <button class="btn btn-block btn-primary">Apply</button>
-                                </div><!-- card-body.// -->
-                            </div>
-                        </article> <!-- filter-group .// -->
-
-                    </div> <!-- card.// -->
-
-                </aside> <!-- col.// -->
+                {% include 'includes/sidebar/store_sidebar.html' %}
                 <main class="col-md-9">
 
                     <header class="border-bottom mb-4 pb-3">
@@ -175,7 +45,9 @@
                                             <img class="card-img-top object-fit-cover" src="{{ product.images.url }}" alt="Product">
                                         </a>
                                           <div class="card-body">
-                                            <h4 class="card-title">{{ product.product_name }}</h4>
+                                              <a href="{{ product.get_url }}" class="text-decoration-none text-black">
+                                                  <h4 class="card-title">{{ product.product_name }}</h4>
+                                              </a>
                                             <div class="price-wrap mt-2">
                                               <span class="price">Tk {{ product.selling_price }}</span>
                                               {% if product.stock > 0 %}
