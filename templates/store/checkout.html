@@ -176,10 +176,19 @@
                                 <p class="opacity-60">Delivery Charges: <span>0</span></p>
                             </div>
                             <div>
-                                <form action="">
-                                    <input type="text" placeholder="Enter Your Coupon" class="px-2 h-full w-75 btn-outline-light" value="">
-                                    <button type="submit" value="" id="place-order-btn" class="btn btn-primary btn-block"> Apply</button>
-                                </form>
+                                  <form id="coupon-form">
+                                       {% csrf_token %}
+                                      <input type="text" id="coupon-input" placeholder="Enter coupon code">
+                                      <button type="submit" id="apply-button" class="btn btn-primary btn-block">Apply</button>
+                                   </form>
+{#                                <form action="">#}
+{#                                    <input type="text" placeholder="Enter Coupon Code" class="px-2 h-full w-75 btn-outline-light" value="">#}
+{##}
+{#                                    <button type="submit" value="" id="place-order-btn" class="btn btn-primary btn-block"> Apply</button>#}
+{#                                </form>#}
+                            </div>
+                             <div id="additional-content-container">
+                                <!-- Additional HTML content will be appended here -->
                             </div>
                             <hr class="border-secondary border-opacity-40 my-3 border-dotted">
                             <div class="flex items-center justify-between mb-3 last:mb-0">
@@ -219,8 +228,9 @@
     {#        // Add more city-area pairs here#}
 
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+
         function get_cities_by_division() {
             var division_id = document.getElementById('id_division').value;
 
@@ -289,12 +299,56 @@
         }
 
          {#form submittion #}
-     document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById("placeOrderBtn").addEventListener("click", function () {
-            console.log("button clicked")
-            document.getElementById("order-form").submit();
+         document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById("placeOrderBtn").addEventListener("click", function () {
+                console.log("button clicked")
+                document.getElementById("order-form").submit();
+            });
         });
-    });
+
+    {#    handle coupon #}
+             // Include the CSRF token in AJAX request headers
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrf_token = getCookie('csrftoken');
+
+         $('#coupon-form').submit(function(event){
+             event.preventDefault();
+             const couponCode = $('#coupon-input').val();
+             console.log(`coupon form submitted, coupon code: ${couponCode}`)
+
+             $.ajax({
+                 url: '/cart/apply_coupon/',  // URL to your backend view for applying coupon
+                    type: 'POST',  // Use 'POST' method to send data to the server
+                    data: {
+                        'coupon_code': couponCode  // Send the coupon code to the server
+                    },
+                   headers: {
+                        'X-CSRFToken': csrf_token  // Include the CSRF token in the request headers
+                    },
+                    success: function(data) {
+                        // Append the received HTML content to the container element
+                        $('#additional-content-container').append(data.additional_html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+             })
+
+         })
 
     </script>
 

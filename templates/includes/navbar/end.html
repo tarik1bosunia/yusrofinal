@@ -403,13 +403,24 @@
         </a>
     </ul>
     <!-- notifications -->
-    <a href="{% url 'cart' %}" class="rounded-circle p-1 bg-white d-flex align-items-center justify-content-center  text-decoration-none black"
-            style="width: 38px; height: 38px"
+    <a href="{% url 'cart' %}" class="rounded-circle p-1 bg-white d-flex align-items-center justify-content-center  text-decoration-none black position-relative"
+            style="width: 34px; height: 30px"
             type="button"
             id="notMenu"
     >
-        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-cart-shopping" ></i>
+
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">{{  cart_count }} </span>
     </a>
+{#    <a href="{% url 'cart' %}" class="rounded-circle p-1 bg-white d-flex align-items-center justify-content-center  text-decoration-none black"#}
+{#            style="width: 38px; height: 38px"#}
+{#            type="button"#}
+{#            id="notMenu"#}
+{#    >#}
+{#        <i class="fa-solid fa-cart-shopping"></i>#}
+{##}
+{#        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>#}
+{#    </a>#}
 
     <!-- user menu -->
     {% if user.is_authenticated %}

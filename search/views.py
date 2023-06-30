@@ -4,7 +4,40 @@ from django.db.models import Q
 from search.models import Name
 # from dal import autocomplete
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+
+
+def search_product(request):
+    products = None
+    products_count = 0
+    search_query = None
+
+    if 'searchInput' in request.GET:
+
+        search_query = request.GET.get('searchInput')
+
+        if 0 < len(search_query) < 80:
+            print(search_query)
+            products = Product.objects.filter(
+                Q(product_name__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(category__category_name__icontains=search_query) |
+                Q(category__slug__contains=search_query) |
+                Q(category__description__icontains=search_query) |
+                Q(slug__icontains=search_query) |
+                Q(slug__icontains=search_query)
+            )
+
+    products_count = len(products)
+    context = {
+        "products": products,
+        "products_count": products_count,
+        "search_query": search_query
+    }
+
+    return render(request, "store/store.html", context)
+
+
 
 """
 @ return search keys for autocomplete search feature
@@ -112,23 +145,7 @@ def autocomplete(request):
     return JsonResponse(results, safe=False)
 
 
-def search_product(request):
-    products = None
-    products_count = 0
-    search_query = None
 
-    if 'keyword' in request.GET:
-        search_query = request.GET.get('keyword')
-        if 0 < len(search_query) < 80:
-            products = Product.objects.filter(Q(product_name__icontains=search_query) | Q(description__icontains=search_query)| Q(category__category_name__icontains=search_query), Q(category__slug__contains=search_query) | Q(category__description__icontains=search_query) | Q(slug__contains=search_query) | Q(slug__contains=search_query))
-
-    context = {
-        "products": products,
-        "products_count": products_count,
-        "search_query": search_query
-    }
-
-    return render(request, "store/store.html", context)
 
 
 # def search_product(request):

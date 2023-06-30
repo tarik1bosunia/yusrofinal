@@ -89,13 +89,11 @@ class VariationManager(models.Manager):
         return super(VariationManager, self).filter(variation_category='size', is_active=True)
 
 
-variation_category_choice = (
-    ('color', 'color'),
-    ('size', 'size'),
-)
-
-
 class Variation(models.Model):
+    variation_category_choice = (
+        ('color', 'color'),
+        ('size', 'size'),
+    )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     variation_category = models.CharField(max_length=100, choices=variation_category_choice)
     variation_value = models.CharField(max_length=100)

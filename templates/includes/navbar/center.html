@@ -13,7 +13,7 @@
         <span class="input-group-prepend d-none d-lg-block" id="searchMenu" data-bs-toggle="dropdown"
               aria-expanded="false" data-bs-auto-close="outside">
             <form action="{% url 'search_product' %}" class="search bg-gray border-0 rounded-pill" style="height: 40px; min-width: 500px;">
-                <input type="search" class="rounded-pill border-0 bg-gray dropdown-item" placeholder="Search..." id="searchInput" style="padding: 10px 16px; height: 100%;" />
+                <input type="search" id="searchInput" name="searchInput" class="rounded-pill border-0 bg-gray dropdown-item" placeholder="Search..." style="padding: 10px 16px; height: 100%;" />
 
             </form>
 
@@ -110,17 +110,17 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-    $('#searchInput').autocomplete({
-        source: function(request, response) {
-            $.getJSON('{% url "autocomplete" %}', { term: request.term }, function(data) {
-                console.log('data:', data)
-                response(data);
-            });
-        },
-        minLength: 2
-    });
-});
+{#    $(document).ready(function() {#}
+{#    $('#searchInput').autocomplete({#}
+{#        source: function(request, response) {#}
+{#            $.getJSON('{% url "autocomplete" %}', { term: request.term }, function(data) {#}
+{#                console.log('data:', data)#}
+{#                response(data);#}
+{#            });#}
+{#        },#}
+{#        minLength: 2#}
+{#    });#}
+{# ); #}
 
 </script>
 
