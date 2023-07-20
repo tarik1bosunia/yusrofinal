@@ -1,33 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<form action="{% url 'user_registration' %}" method="post" novalidate>
-    {% csrf_token %}
-    <fieldset>
-        <legend>Sign Up::</legend>
-            {% if UserRegistrationForm.non_field_errors %}
-                {% for error in UserRegistrationForm.non_field_errors %}
-                    <p class="er">{{ error }}</p>
-                {% endfor %}
-            {% endif %}
-            {% for item in UserRegistrationForm %}
-                {{ item.legend_tag}}
-                {{ item }}
-                {{ item.errors | striptags }}
-                <br> <br>
-            {% endfor %}
+{% block content %}
 
-    <input type="submit" value="Submit">
-    </fieldset>
 
-</form>
-<p>already have an account </p>
-<p><a href="{% url 'user_login' %}">Login</a></p>
 
-</body>
-</html>
+    <!-- ============================ COMPONENT REGISTER   ================================= -->
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card">
+                      <div class="card-body">
+                        <h2 class="text-center mb-4">Sign Up</h2>
+
+                        <form action="{% url 'user_registration' %}" method="post" novalidate class="mx-auto bg-light p-4 mb-4 rounded">
+                                {% csrf_token %}
+
+                                {% if UserRegistrationForm.non_field_errors %}
+                                    {% for error in UserRegistrationForm.non_field_errors %}
+                                        <div class="alert alert-danger">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% for item in UserRegistrationForm %}
+                                    <div class="form-group">
+                                        <label for="{{ item.auto_id }}" class="form-label">{{ item.label }}</label>
+            {#                            {{ item.legend_tag}}#}
+                                        {{ item }}
+                                        {% if item.help_text %}
+                                            <small class="form-text text-muted">{{ item.help_text }}</small>
+                                        {% endif %}
+                                        {% if item.errors %}
+                                            <div class="invalid-feedback d-block">{{ item.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                {% endfor %}
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3"> Register  </button>
+
+
+                            </form>
+                          <div class="d-flex justify-content-center flex-column">
+                            <div class="p-1">
+                              <p>Already have an account? <a href="{% url 'user_login' %}" class="text-md fw-bold">Log In</a> </p>
+                            </div>
+                          </div>
+                        </div><!-- card-body.// -->
+                    </div> <!-- card .// -->
+                </div>
+            </div>
+        </div>
+    <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+{#<form action="{% url 'user_registration' %}" method="post" novalidate>#}
+{#    {% csrf_token %}#}
+{#    <fieldset>#}
+{#        <legend>Sign Up::</legend>#}
+{#            {% if UserRegistrationForm.non_field_errors %}#}
+{#                {% for error in UserRegistrationForm.non_field_errors %}#}
+{#                    <p class="er">{{ error }}</p>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#            {% for item in UserRegistrationForm %}#}
+{#                {{ item.legend_tag}}#}
+{#                {{ item }}#}
+{#                {{ item.errors | striptags }}#}
+{#                <br> <br>#}
+{#            {% endfor %}#}
+{##}
+{#    <input type="submit" value="Submit">#}
+{#    </fieldset>#}
+{##}
+{#</form>#}
+{#<p>already have an account </p>#}
+{#<p><a href="{% url 'user_login' %}">Login</a></p>#}
+
+    <script>
+        function togglePassword(element) {
+          const passwordInput = element.parentElement.previousElementSibling;
+          passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+          const icon = passwordInput.type === "password" ? "fa-eye" : "fa-eye-slash";
+          element.querySelector("i").classList.remove("fa-eye", "fa-eye-slash");
+          element.querySelector("i").classList.add(icon);
+
+        }
+    </script>
+
+{% endblock content %}

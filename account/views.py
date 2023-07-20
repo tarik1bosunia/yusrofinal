@@ -108,6 +108,7 @@ def user_settings_and_privacy_view(request):
     }
     return render(request, 'account/settings_and_privacy.html', context)
 
+
 def user_login_view(request):
     if request.user.is_authenticated:
         return redirect('user_profile')
